@@ -1,0 +1,56 @@
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Set;
+
+public class CustomGraph {
+
+     Vertex[] vertices;
+
+    CustomGraph(int capacity) {
+        vertices = new Vertex[capacity];
+    }
+
+    public Vertex createVertex(int data) {
+        Vertex vertex = new Vertex(data);
+        return vertex;
+    }
+
+    public void addVertex(Vertex vertex, int pos) {
+        vertices[pos] = vertex;
+    }
+
+    public void addEdge(Vertex source, Vertex destination) {
+        source.addAdjacent(destination);
+        destination.addAdjacent(source);
+    }
+
+    public void print() {
+        for(int i=0;i<vertices.length;i++) {
+            System.out.println("Vertex: "+vertices[i].data);
+            System.out.print("Adjacent: (");
+           for (Vertex adj: vertices[i].adjacentVertices) {
+               System.out.print(adj.data+" ");
+           }
+            System.out.print(")");
+            System.out.println("");
+        }
+    }
+
+    class Vertex {
+        int data;
+        Set<Vertex> adjacentVertices;
+
+        Vertex(int data) {
+            this.data = data;
+            adjacentVertices = new LinkedHashSet<>();
+        }
+
+        void addAdjacent(Vertex vertex) {
+            adjacentVertices.add(vertex);
+        }
+
+    }
+
+
+
+}
